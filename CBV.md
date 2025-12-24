@@ -93,7 +93,6 @@ def get_context_data(self, **kwargs):
 #  عرض عنصر واحد DetailView
 
 ### الهدف
-
 عرض كائن واحد فقط
 
 
@@ -134,7 +133,6 @@ if not self.request.user.has_perm("view_book", obj):
 يُستخدم أحيانًا بدل `get_object`
 
 
-
 ### 3ا get_context_data()
 
 إرسال بيانات إضافية للـ template
@@ -144,7 +142,6 @@ if not self.request.user.has_perm("view_book", obj):
 
 # إضافة عنصر CreateView
 ### الهدف
-
 إنشاء كائن جديد
 
 
@@ -158,7 +155,7 @@ success_url = reverse_lazy("books")
 
 ## أهم الدوال
 
-### 1ا  form_valid(form) ⭐⭐⭐
+### 1ا  form_valid(form)
 
 يُنفّذ بعد نجاح التحقق من الفورم
 
@@ -170,7 +167,8 @@ success_url = reverse_lazy("books")
 ```python
 def form_valid(self, form):
     form.instance.created_by = self.request.user
-    return super().form_valid(form)
+    return super().form_valid(form) #save
+    
 ```
 
 
@@ -185,7 +183,6 @@ def form_valid(self, form):
 التحكم في الفورم نفسه
 
 
-
 ### 4ا get_success_url()
 
 تحديد وجهة التحويل بعد الحفظ
@@ -195,7 +192,6 @@ def form_valid(self, form):
 # تعديل عنصر UpdateView
 
 ### الهدف
-
 تعديل كائن موجود
 
 
@@ -236,7 +232,7 @@ success_url = reverse_lazy("books")
 
 ## أهم الدوال
 
-### 1ا get_object() ⭐⭐⭐
+### 1ا get_object()
 
 جلب الكائن المراد حذفه
 أهم نقطة أمان
@@ -255,7 +251,7 @@ def delete(self, request, *args, **kwargs):
 
 # دوال مشتركة بين كل الـ CBVs
 
-### 1ا  dispatch() ⭐⭐⭐
+### 1ا  dispatch()
 
 أول دالة تُنفّذ
 مثالية للتحقق من:
@@ -263,18 +259,14 @@ def delete(self, request, *args, **kwargs):
 - الأدوار role
 - الصلاحيات- permissions عامة
 
-
 ### 2ا get()
 لـ GET request
-
-
 
 ### 3ا  post()
 لـ POST request
 
 ### 4ا setup()
 تهيئة الكلاس
-
 
 
 #  كيف تختار الدالة الصحيحة؟
@@ -288,12 +280,11 @@ def delete(self, request, *args, **kwargs):
 | تحقق عام             | dispatch         |
 
 
-
 # ربطها مع Guardian (ملخص)
 
-| الحالة             | المكان       |     |
-| ------------------ | ------------ | --- |
-| عرض عناصر مصرح بها | get_queryset |     |
-| حماية عنصر         | get_object   |     |
-| إعطاء صلاحيات      | form_valid   |     |
-| حماية كل الكلاس    | dispatch     |     |
+| الحالة             | المكان       |
+| ------------------ | ------------ |
+| عرض عناصر مصرح بها | get_queryset |
+| حماية عنصر         | get_object   |
+| إعطاء صلاحيات      | form_valid   |
+| حماية كل الكلاس    | dispatch     |
