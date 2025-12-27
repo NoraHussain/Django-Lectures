@@ -13,3 +13,9 @@
 [Views](django/Views.md)
 
 [Permissions](django/permissions/Django%20Permissions.md)
+
+[Media](Media.md)
+
+## Articles
+
+[المواضيع الأساسية والضرورية لبناء نظام متكامل](article1.md)
